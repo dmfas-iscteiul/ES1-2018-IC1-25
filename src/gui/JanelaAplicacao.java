@@ -5,15 +5,22 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.ScrollPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.ScrollPaneLayout;
 import javax.swing.WindowConstants;
+
+import twitterpack.Twitterapp;
 
 	public class JanelaAplicacao {
 	private JFrame frame;
@@ -23,7 +30,7 @@ import javax.swing.WindowConstants;
 		   
 		   frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 			
-			frame.setLayout(new GridLayout(4,1));
+			frame.setLayout(new FlowLayout());
 			
 			addFrameContent();
 			
@@ -33,6 +40,7 @@ import javax.swing.WindowConstants;
 	   public void open() {
 		   frame.setVisible(true);
 	   }
+	   
 	   
 	   private void addFrameContent() {
 		   frame.setLayout(new BorderLayout());
@@ -51,8 +59,12 @@ import javax.swing.WindowConstants;
 			
 		
 
-			JTextField text1 = new JTextField(" ");
-			text1.setPreferredSize( new Dimension( 400, 400 ) );
+			JTextArea text1 = new JTextArea(" ");
+			JScrollPane sp1 = new JScrollPane(text1);
+			sp1.setLayout(new ScrollPaneLayout());
+			sp1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+			sp1.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+			sp1.setPreferredSize( new Dimension( 400, 400 ) );
 			
 			JButton button1 = new JButton("ACTIVAR/DESATIVAR");
 			button1.setBackground(Color.RED);
@@ -69,13 +81,16 @@ import javax.swing.WindowConstants;
 				}
 			});
 			painel1.add(label1, BorderLayout.NORTH);
-			painel1.add(text1, BorderLayout.CENTER);
+			painel1.add(sp1, BorderLayout.CENTER);
 			painel1.add(button1, BorderLayout.SOUTH);
 			
 			JLabel label2 = new JLabel("facebook");
-			
-			JTextField text2 = new JTextField(" ");
-			text2.setPreferredSize( new Dimension( 400, 400 ) );
+			JTextArea text2 = new JTextArea(" ");
+			JScrollPane sp2 = new JScrollPane(text2);
+			sp2.setLayout(new ScrollPaneLayout());
+			sp2.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+			sp2.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+			sp2.setPreferredSize( new Dimension( 400, 400 ) );
 			
 			JButton button2 = new JButton("ACTIVAR/DESATIVAR");
 			button2.setBackground(Color.RED);
@@ -93,25 +108,39 @@ import javax.swing.WindowConstants;
 			});
 
 			painel2.add(label2, BorderLayout.NORTH);
-			painel2.add(text2, BorderLayout.CENTER);
+			painel2.add(sp2, BorderLayout.CENTER);
 			painel2.add(button2, BorderLayout.SOUTH);
 			
 			
 			JLabel label3 = new JLabel("twitter");
 		
-			JTextField text3 = new JTextField(" ");
-	text3.setPreferredSize( new Dimension( 400, 400 ) );
+			JTextArea text3 = new JTextArea(" ");
+			JScrollPane sp3 = new JScrollPane(text3);
+			sp3.setLayout(new ScrollPaneLayout());
+			sp3.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+			sp3.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+			sp3.setPreferredSize( new Dimension( 400, 400 ) );
 			
 			JButton button3 = new JButton("ACTIVAR/DESATIVAR");
 			button3.setBackground(Color.RED);
-		
+			
 
 			button3.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent arg0){
-				
+				Twitterapp ta = new Twitterapp();
+				StringBuilder xo = new StringBuilder();
+				List<String> list = new ArrayList<>();
+				list = ta.getList();
+				for(String s: list) {
+						xo.append(s);
+						xo.append("\n");
+				}
+				String xox = xo.toString();
 					if(button3.getBackground().equals(Color.RED)) {
 						button3.setBackground(Color.GREEN);
+						text3.setText(xox);
+
 					}else {
 						button3.setBackground(Color.RED);
 					}
@@ -119,7 +148,7 @@ import javax.swing.WindowConstants;
 			});
 			
 			painel3.add(label3, BorderLayout.NORTH);
-			painel3.add(text3, BorderLayout.CENTER );
+			painel3.add(sp3, BorderLayout.CENTER );
 			painel3.add(button3, BorderLayout.SOUTH);
 			
 			paineltotal.add(painel1);
@@ -128,10 +157,7 @@ import javax.swing.WindowConstants;
 			frame.add(paineltotal);
 	   }
 	   
-	   public static void main(String[] args) {
-		   JanelaLogin window = new JanelaLogin();
-		   window.open();
-	   }
+	 
 	   
 
 	   }
