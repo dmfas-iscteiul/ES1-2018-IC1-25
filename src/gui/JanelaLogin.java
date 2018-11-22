@@ -10,10 +10,23 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
+/** 
+ * 
+ * 
+ * @author elmo & dinis
+ *
+ */
+
 public class JanelaLogin extends javax.swing.JFrame {
 
+	/** 
+	 * window of the GUI
+	 */
    private JFrame frame;
-   
+   private JFrame frame2;
+   /**
+	 * Constructor of class JanelaLogin
+	 */
    public JanelaLogin() {
 	   
 	   frame = new JFrame("ISCTE");
@@ -26,13 +39,18 @@ public class JanelaLogin extends javax.swing.JFrame {
 		
 		frame.pack();
    }
-   
+
+   /** 
+    * this method defines if the gui gonna be visible or not
+    */
    public void open() {
 	   frame.setVisible(true);
    }
    
  
-   
+   /**
+    * this method contains all the components of the frame
+    */
    private void addFrameContent() {
 	   frame.setLayout(new GridLayout(4,1));
 	   JLabel label1 = new JLabel("email");
@@ -63,6 +81,10 @@ public class JanelaLogin extends javax.swing.JFrame {
 		
    }
    
+   /** 
+    * main
+    * @param args
+    */
    public static void main(String[] args) {
 	   JanelaLogin window = new JanelaLogin();
 	   window.open();

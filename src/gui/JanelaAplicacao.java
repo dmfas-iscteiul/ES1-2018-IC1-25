@@ -22,10 +22,25 @@ import javax.swing.WindowConstants;
 
 import twitterpack.Twitterapp;
 
+
+/** 
+ * 
+ * 
+ * @author elmo & dinis
+ *
+ */
 	public class JanelaAplicacao {
-	private JFrame frame;
+	
+		/** 
+		 * window of the GUI
+		 */
+		private JFrame frame;
 	   
 	   public JanelaAplicacao() {
+		   
+		   /**
+			 * Constructor of class JanelaAplicacao
+			 */
 		   frame = new JFrame("API");
 		   
 		   frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -37,11 +52,16 @@ import twitterpack.Twitterapp;
 			frame.pack();
 	   }
 	   
+	   /** 
+	    * this method defines if the gui gonna be visible or not
+	    */
 	   public void open() {
 		   frame.setVisible(true);
 	   }
 	   
-	   
+	   /**
+	    * this method contains all the components of the frame
+	    */
 	   private void addFrameContent() {
 		   frame.setLayout(new BorderLayout());
 		   JPanel paineltotal = new JPanel();
