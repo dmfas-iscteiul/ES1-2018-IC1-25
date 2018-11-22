@@ -8,6 +8,10 @@ import com.restfb.FacebookClient.AccessToken;
 import com.restfb.types.Post;
 import com.restfb.types.User;
 
+/**
+ * @author tiago
+ *
+ */
 public class FacebookAPI {
 	public static void main(String[] args) {
 		/* 
