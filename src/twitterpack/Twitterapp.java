@@ -7,9 +7,20 @@ import twitter4j.Twitter;
 import twitter4j.TwitterFactory;
 import twitter4j.conf.ConfigurationBuilder;
 
-public final class Twitterapp {
+
+/**
+ * @author tiago
+ *
+ */
+public final class Twitterapp {	
+	
 	List<String> list = new ArrayList<>();
+	
+	/**
+	 * Connects the program to twitter, gets posts from there and puts them into a List<String>
+	 */
 	public Twitterapp() {
+		
 		// http://twitter4j.org
 		// http://twitter4j.org/en/code-examples.html
 		// https://www.youtube.com/watch?v=uYPmkzMpnxw
@@ -38,12 +49,13 @@ public final class Twitterapp {
 			System.out.println(e.getMessage());
 		}
 	}
+	
+	
+	/**
+	 * @return list of strings with the twitter posts
+	 */
 	public ArrayList<String> getList() {
 		return (ArrayList<String>) list;
 	}
-	
-	
-	
-	
 	
 }
