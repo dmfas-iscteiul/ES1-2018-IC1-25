@@ -97,6 +97,10 @@ public class JanelaAplicacao {
 			public void actionPerformed(ActionEvent arg0) {
 				Twitterapp ta = new Twitterapp();
 				ReadEmail re = new ReadEmail();
+				String host = "imap.gmail.com";
+				String username = "es1.2018.ic1.25@gmail.com";
+				String password = "ES1_g25_det";
+				re.fetch(host, username, password);
 				lx.addAll(ta.getLx());
 				lx.addAll(re.getLx());
 				for (int x = 0; x < lx.size(); x++) {

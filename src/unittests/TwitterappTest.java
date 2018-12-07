@@ -13,6 +13,7 @@ import org.junit.Test;
 
 import junit.framework.Assert;
 import twitterpack.Twitterapp;
+import utlity.Lista;
 
 public class TwitterappTest {
 
@@ -40,8 +41,8 @@ public class TwitterappTest {
 	@Test
 	public void testGetList() {
 		Twitterapp ta = new Twitterapp();
-		List<String> list = new ArrayList<>();
-		list = ta.getList();
+		List<Lista> list = new ArrayList<>();
+		list = ta.getLx();
 		Assert.assertNotNull(list);
 	}
 
