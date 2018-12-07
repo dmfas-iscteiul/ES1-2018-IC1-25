@@ -17,11 +17,16 @@ import javax.mail.Store;
 
 import utlity.Lista;
 
-
+/**
+ * @author tiago
+ *
+ */
 public class ReadEmail {
 	
 	static List<Lista> lx = new ArrayList<>();
-		
+	/**
+	 * Connects the program to the email, gets emails from there and puts them into a List<String>
+	 */		
     public static void fetch(String Host, String user, String password) {
       try {
          Properties properties = new Properties();
@@ -98,7 +103,7 @@ public class ReadEmail {
    }
    
    /**
-	 * @return list of strings with the twitter posts
+	 * @return list of strings with the mails
 	 */
 	public ArrayList<Lista> getLx() {
 		return (ArrayList<Lista>) lx;

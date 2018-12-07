@@ -4,6 +4,10 @@ import org.simplejavamail.mailer.Mailer;
 import org.simplejavamail.mailer.MailerBuilder;
 import org.simplejavamail.mailer.config.TransportStrategy;
 
+/**
+ * @author tiago
+ *
+ */
 public class MailApp {
 	
 	public MailApp () {
