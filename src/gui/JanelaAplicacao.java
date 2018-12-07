@@ -11,175 +11,128 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.ListModel;
 import javax.swing.ScrollPaneLayout;
 import javax.swing.WindowConstants;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
+import mailpack.ReadEmail;
 import twitterpack.Twitterapp;
+import utlity.Lista;
 
-
-/** 
+/**
  * 
  * 
  * @author elmo & dinis
  *
  */
-	public class JanelaAplicacao {
-	
-		/** 
-		 * window of the GUI
+public class JanelaAplicacao {
+	private JList<String> lista;
+	private DefaultListModel<String> model = new DefaultListModel<>();
+	List<Lista> lx = new ArrayList<>();
+
+	/**
+	 * window of the GUI
+	 */
+	private JFrame frame;
+
+	public JanelaAplicacao() {
+
+		/**
+		 * Constructor of class JanelaAplicacao
 		 */
-		private JFrame frame;
-	   
-	   public JanelaAplicacao() {
-		   
-		   /**
-			 * Constructor of class JanelaAplicacao
-			 */
-		   frame = new JFrame("API");
-		   
-		   frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-			
-			frame.setLayout(new FlowLayout());
-			
-			addFrameContent();
-			
-			frame.pack();
-	   }
-	   
-	   /** 
-	    * this method defines if the gui gonna be visible or not
-	    */
-	   public void open() {
-		   frame.setVisible(true);
-	   }
-	   
-	   /**
-	    * this method contains all the components of the frame
-	    */
-	   private void addFrameContent() {
-		   frame.setLayout(new BorderLayout());
-		   JPanel paineltotal = new JPanel();
-			paineltotal.setLayout(new GridLayout(1,4));
-			
-			JPanel painel1 = new JPanel();
-			painel1.setLayout(new BorderLayout());
-			JPanel painel2 = new JPanel();
-			painel2.setLayout(new BorderLayout());
-			JPanel painel3 = new JPanel();
-			painel3.setLayout(new BorderLayout());
-		  
-			
-			JLabel label1 = new JLabel("email");
-			
-		
+		frame = new JFrame("API");
 
-			JTextArea text1 = new JTextArea(" ");
-			JScrollPane sp1 = new JScrollPane(text1);
-			sp1.setLayout(new ScrollPaneLayout());
-			sp1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-			sp1.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-			sp1.setPreferredSize( new Dimension( 400, 400 ) );
-			
-			JButton button1 = new JButton("ACTIVAR/DESATIVAR");
-			button1.setBackground(Color.RED);
-			
-			button1.addActionListener(new ActionListener()  {
-				@Override
-				public void actionPerformed(ActionEvent arg0) {
-				
-					if(button1.getBackground().equals(Color.RED)) {
-						button1.setBackground(Color.GREEN);
-					}else {
-						button1.setBackground(Color.RED);
-					}
-				}
-			});
-			painel1.add(label1, BorderLayout.NORTH);
-			painel1.add(sp1, BorderLayout.CENTER);
-			painel1.add(button1, BorderLayout.SOUTH);
-			
-			JLabel label2 = new JLabel("facebook");
-			JTextArea text2 = new JTextArea(" ");
-			JScrollPane sp2 = new JScrollPane(text2);
-			sp2.setLayout(new ScrollPaneLayout());
-			sp2.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-			sp2.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-			sp2.setPreferredSize( new Dimension( 400, 400 ) );
-			
-			JButton button2 = new JButton("ACTIVAR/DESATIVAR");
-			button2.setBackground(Color.RED);
-			
-			button2.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent arg0) {
-				
-					if(button2.getBackground().equals(Color.RED)) {
-						button2.setBackground(Color.GREEN);
-					}else {
-						button2.setBackground(Color.RED);
-					}
-				}
-			});
+		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-			painel2.add(label2, BorderLayout.NORTH);
-			painel2.add(sp2, BorderLayout.CENTER);
-			painel2.add(button2, BorderLayout.SOUTH);
-			
-			
-			JLabel label3 = new JLabel("twitter");
-		
-			JTextArea text3 = new JTextArea(" ");
-			JScrollPane sp3 = new JScrollPane(text3);
-			sp3.setLayout(new ScrollPaneLayout());
-			sp3.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-			sp3.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-			sp3.setPreferredSize( new Dimension( 400, 400 ) );
-			
-			JButton button3 = new JButton("ACTIVAR/DESATIVAR");
-			button3.setBackground(Color.RED);
-			
+		frame.setLayout(new FlowLayout());
 
-			button3.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent arg0){
+		addFrameContent();
+
+		frame.pack();
+	}
+
+	/**
+	 * this method defines if the gui gonna be visible or not
+	 */
+	public void open() {
+		frame.setVisible(true);
+	}
+
+	/**
+	 * this method contains all the components of the frame
+	 */
+	private void addFrameContent() {
+		frame.setLayout(new BorderLayout());
+		JPanel paineltotal = new JPanel();
+		paineltotal.setLayout(new GridLayout(1, 2));
+
+		JPanel painel1 = new JPanel();
+		painel1.setLayout(new BorderLayout());
+		JPanel painel2 = new JPanel();
+		painel2.setLayout(new BorderLayout());
+
+		JLabel label1 = new JLabel("twitter + mail");
+		lista = new JList<String>(model);
+		JScrollPane sp1 = new JScrollPane(lista);
+		sp1.setLayout(new ScrollPaneLayout());
+		sp1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		sp1.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		sp1.setPreferredSize(new Dimension(400, 400));
+
+		JButton button1 = new JButton("ACTIVAR/DESATIVAR");
+		button1.setBackground(Color.RED);
+
+		button1.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
 				Twitterapp ta = new Twitterapp();
-				StringBuilder xo = new StringBuilder();
-				List<String> list = new ArrayList<>();
-				list = ta.getList();
-				for(String s: list) {
-						xo.append(s);
-						xo.append("\n");
+				ReadEmail re = new ReadEmail();
+				lx.addAll(ta.getLx());
+				lx.addAll(re.getLx());
+				for (int x = 0; x < lx.size(); x++) {
+					model.addElement(new String(lx.get(x).getHead()));
 				}
-				String xox = xo.toString();
-					if(button3.getBackground().equals(Color.RED)) {
-						button3.setBackground(Color.GREEN);
-						text3.setText(xox);
 
-					}else {
-						button3.setBackground(Color.RED);
-					}
-				}
-			});
-			
-			painel3.add(label3, BorderLayout.NORTH);
-			painel3.add(sp3, BorderLayout.CENTER );
-			painel3.add(button3, BorderLayout.SOUTH);
-			
-			paineltotal.add(painel1);
-			paineltotal.add(painel2);
-			paineltotal.add(painel3);
-			frame.add(paineltotal);
-	   }
-	   
-	 
-	   
+			}
+		});
 
-	   }
+		painel1.add(label1, BorderLayout.NORTH);
+		painel1.add(sp1, BorderLayout.CENTER);
+		painel1.add(button1, BorderLayout.SOUTH);
 
+		JLabel label2 = new JLabel("Conteudo");
 
+		JTextArea text2 = new JTextArea(" ");
+		JScrollPane sp2 = new JScrollPane(text2);
+		sp2.setLayout(new ScrollPaneLayout());
+		sp2.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		sp2.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		sp2.setPreferredSize(new Dimension(400, 400));
+
+		lista.addListSelectionListener(new ListSelectionListener() {
+
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				text2.setText(lx.get(lista.getSelectedIndex()).getCont());
+			}
+		});
+
+		painel2.add(label2, BorderLayout.NORTH);
+		painel2.add(sp2, BorderLayout.CENTER);
+
+		paineltotal.add(painel1);
+		paineltotal.add(painel2);
+		frame.add(paineltotal);
+	}
+
+}

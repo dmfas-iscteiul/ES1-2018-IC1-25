@@ -6,6 +6,7 @@ import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterFactory;
 import twitter4j.conf.ConfigurationBuilder;
+import utlity.Lista;
 
 
 /**
@@ -14,7 +15,8 @@ import twitter4j.conf.ConfigurationBuilder;
  */
 public final class Twitterapp {	
 	
-	List<String> list = new ArrayList<>();
+	List<Lista> lx = new ArrayList<>();
+
 	
 	/**
 	 * Connects the program to twitter, gets posts from there and puts them into a List<String>
@@ -38,8 +40,9 @@ public final class Twitterapp {
 			int counterTotal = 0;
 			for (Status status : statuses) {
 				// Filters only tweets from user "catarina"
-				if (status.getUser().getName() != null && status.getUser().getName().contains("catarina")) {
-					list.add(status.getUser().getName() + ":" + status.getText());
+				if (status.getUser().getName() != null) {
+					//list.add("Twitter:" + status.getUser().getName() + ":" + status.getText());
+					lx.add(new Lista("Twitter:" + status.getUser().getName(), status.getText()));
 					counter++;
 				}
 				counterTotal++;
@@ -54,8 +57,9 @@ public final class Twitterapp {
 	/**
 	 * @return list of strings with the twitter posts
 	 */
-	public ArrayList<String> getList() {
-		return (ArrayList<String>) list;
+	public ArrayList<Lista> getLx() {
+		return (ArrayList<Lista>) lx;
 	}
+
 	
 }

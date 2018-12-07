@@ -1,6 +1,8 @@
 package mailpack;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import javax.mail.Address;
@@ -12,8 +14,11 @@ import javax.mail.NoSuchProviderException;
 import javax.mail.Session;
 import javax.mail.Store;
 
+import utlity.Lista;
+
 public class ReadEmail {
-	
+	static List<Lista> lx = new ArrayList<>();
+
 	public static void main(String[] args) {
 
 		String host = "imap.gmail.com";
@@ -21,7 +26,10 @@ public class ReadEmail {
 		String password = "ES1_g25_det";
 
 		fetch(host, username, password);
-
+		
+		for(int x=0; x<lx.size(); x++) {
+			System.out.println(lx.get(x).getCont());
+		}
 	}
 
    public static void fetch(String Host, String user, String password) {
@@ -41,7 +49,21 @@ public class ReadEmail {
          for (int i = 0; i < messages.length; i++) {
             message = messages[i];
             System.out.println("---------------------------------");
-            writeContent(message);
+            if (message.isMimeType("text/plain")) {
+	  			lx.add(new Lista("Mail" + message.getSubject(),(String) message.getContent()));
+	  			
+  }
+  else if (message.isMimeType("multipart/*"))
+  {
+     Multipart mp = (Multipart) message.getContent();
+     int count = mp.getCount();
+     for (int z = 0; z < count; z++)
+       if(mp.getBodyPart(z).isMimeType("text/plain")) {
+    	   	   			lx.add(new Lista("Mail" + message.getSubject(),(String) mp.getBodyPart(z).getContent()));
+    	   	   			
+       }
+  }
+           // writeContent(message, lx);
          }
 
          emailFolder.close(false);
@@ -59,18 +81,22 @@ public class ReadEmail {
    }
 
 
-   public static void writeContent(Message message) throws Exception {
-	         writeHeader(message);
+   public static void writeContent(Message message, List<Lista> lx) throws Exception {
+	        // writeHeader(message);
 
-	      if (message.isMimeType("text/plain"))
-	         System.out.println((String) message.getContent());
+	      if (message.isMimeType("text/plain")) {
+	    	  			lx.add(new Lista("Mail" + message.getSubject(),(String) message.getContent()));
+	    	  			
+	      }
 	      else if (message.isMimeType("multipart/*"))
 	      {
 	         Multipart mp = (Multipart) message.getContent();
 	         int count = mp.getCount();
 	         for (int i = 0; i < count; i++)
-	           if(mp.getBodyPart(i).isMimeType("text/plain"))
-	        	   System.out.println(mp.getBodyPart(i).getContent());
+	           if(mp.getBodyPart(i).isMimeType("text/plain")) {
+	        	   	   			lx.add(new Lista("Mail" + message.getSubject(),(String) mp.getBodyPart(i).getContent()));
+	        	   	   			
+	           }
 	      }
 	   }
    
@@ -92,5 +118,7 @@ public class ReadEmail {
       if (message.getSubject() != null)
          System.out.println("SUBJECT: " + message.getSubject());
    }
-
+   public ArrayList<Lista> getLx() {
+		return (ArrayList<Lista>) lx;
+	}
 }
