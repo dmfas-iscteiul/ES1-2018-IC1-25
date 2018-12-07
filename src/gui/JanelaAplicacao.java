@@ -9,6 +9,7 @@ import java.awt.ScrollPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.swing.DefaultListModel;
@@ -81,7 +82,7 @@ public class JanelaAplicacao {
 		JPanel painel2 = new JPanel();
 		painel2.setLayout(new BorderLayout());
 
-		JLabel label1 = new JLabel("twitter + mail");
+		JLabel label1 = new JLabel("Timeline");
 		lista = new JList<String>(model);
 		JScrollPane sp1 = new JScrollPane(lista);
 		sp1.setLayout(new ScrollPaneLayout());
@@ -91,10 +92,14 @@ public class JanelaAplicacao {
 
 		JButton button1 = new JButton("ACTIVAR/DESATIVAR");
 		button1.setBackground(Color.RED);
-
+/*
+ * This functions refreshes the timeline and sorts the new timeline by date.
+ * 
+ */
 		button1.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+				model.clear();
 				Twitterapp ta = new Twitterapp();
 				ReadEmail re = new ReadEmail();
 				String host = "imap.gmail.com";
@@ -103,6 +108,7 @@ public class JanelaAplicacao {
 				re.fetch(host, username, password);
 				lx.addAll(ta.getLx());
 				lx.addAll(re.getLx());
+				Collections.sort(lx);
 				for (int x = 0; x < lx.size(); x++) {
 					model.addElement(new String(lx.get(x).getHead()));
 				}
@@ -123,6 +129,9 @@ public class JanelaAplicacao {
 		sp2.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		sp2.setPreferredSize(new Dimension(400, 400));
 
+		/*
+		 * this method sets the textarea based on the selected header in the JList
+		 */
 		lista.addListSelectionListener(new ListSelectionListener() {
 
 			@Override

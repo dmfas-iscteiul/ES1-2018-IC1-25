@@ -2,6 +2,7 @@ package mailpack;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 
@@ -35,12 +36,14 @@ public class ReadEmail {
          Message message;
          String h ="";
          String content ="";
+         Date d;
          for (int i = 0; i < messages.length; i++) {
             message = messages[i];
            // System.out.println("---------------------------------");
             h = writeHeader(message);
             content = writeContent(message);
-            lx.add(new Lista("Mail" + h,content));
+            d = writeDate(message);
+            lx.add(new Lista("Mail" + h,content,d));
          }
           emailFolder.close(false);
          store.close();
@@ -88,6 +91,10 @@ public class ReadEmail {
       
       return h;
      
+   }
+  
+   public static Date writeDate(Message message) throws MessagingException {
+	   return message.getReceivedDate();
    }
    
    /**

@@ -39,10 +39,9 @@ public final class Twitterapp {
 			int counter = 0;
 			int counterTotal = 0;
 			for (Status status : statuses) {
-				// Filters only tweets from user "catarina"
 				if (status.getUser().getName() != null) {
 					//list.add("Twitter:" + status.getUser().getName() + ":" + status.getText());
-					lx.add(new Lista("Twitter:" + status.getUser().getName(), status.getText()));
+					lx.add(new Lista("Twitter:" + status.getUser().getName(), status.getText(), status.getCreatedAt()));
 					counter++;
 				}
 				counterTotal++;
